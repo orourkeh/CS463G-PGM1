@@ -1,4 +1,4 @@
-COMPILER=g++
+COMPILER=g++ -std=c++11
 SOURCES=main.cpp Board.cpp Board.h
 EXEC=program
 

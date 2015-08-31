@@ -1,13 +1,11 @@
 #include <iostream>
 #include <vector>
 #include "Board.cpp"
-
+void play();
 int main()
 {
 	Board myBoard;
 	myBoard.display();
 
-	char c;
-	std::cin >> c;//////////
-	return 1;
+	return 0;
 }
