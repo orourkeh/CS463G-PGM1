@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+//#include <queue>
 
 #include "Board.cpp"
 int main()
@@ -8,7 +8,7 @@ int main()
 	Board myBoard(100);//argument is the number of moves in shuffle
 	myBoard.display(); 
 
-	std::priority_queue<Board> queue;
+//	std::priority_queue<Board> queue;
 
 
 	//create tree of boards with children containing all possible moves from parent
