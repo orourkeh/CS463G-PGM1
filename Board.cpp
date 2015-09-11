@@ -23,19 +23,32 @@ private:
 public:
 
 	//get balls
-	Board(int cost)
+	Board(int shuffles)
 	{
 		srand(time(NULL));
 		for (int i = 1; i <= NUM_BALLS; i++)//fill ball vector with 1 - 20
 		{
 			m_balls.push_back(i);
 		}
-		m_predicted = cost;//cost should be = to the depth of this node
-		this->shuffle(m_predicted);
+		this->shuffle(shuffles);
+	}
+
+	int findBall(int ball)
+	{
+		for (int i = 0; i < NUM_BALLS; i++)
+		{
+			if (m_balls[i] = ball)
+			{
+				return i;
+			}
+		}
 	}
 	int getHueristic()
 	{
 		//code to find value of huerstic
+		/*
+
+		 HA Dont have to do this yet
 		for(int i = 0; i < m_balls.size(); i++)
 		{
 			int leftNeighbor;
@@ -55,10 +68,10 @@ public:
 				leftNeighbor = m_balls[i] - 1;
         	                rightNeighbor = m_balls[i] + 1;
 			}
-			m_hueristic += *(std::find(m_balls.begin(), m_balls.end(), leftNeighbor));// find returns iterator for integer
-			m_hueristic += *(std::find(m_balls,being(),
+			m_hueristic += ;
+			m_hueristic += 4;
 		}
-		
+		*/ 
 		return m_hueristic;
 	}
 	void moveForward()
@@ -75,17 +88,17 @@ public:
 		this->swap(13, 14);
 	}
 	Board* getForwardChild()
-        {
-                return forwardChild;
-        }
-        Board* getBackwardChild()
-        {
-                return backwardChild;
-        }
-        Board* getRotateChild()
-        {
-                return rotateChild;
-        }
+    {
+		return forwardChild;
+    }
+    Board* getBackwardChild()
+    {
+        return backwardChild;
+    }
+    Board* getRotateChild()
+    {
+		return rotateChild;
+    }
 
 	void shuffle(int numMoves)
 	{
@@ -119,6 +132,13 @@ public:
 	}
 	void display()
 	{
+		/*
+			 1  2  3  4  5  6  7  8 
+			20					  9
+			19					  10
+			18 17 16 15 14 13 12  11 
+
+		*/
 		for (int i = 0; i < 8; i++)//top row
 		{
 			std::cout << m_balls[i] << "\t";
