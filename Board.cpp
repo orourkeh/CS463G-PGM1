@@ -1,29 +1,22 @@
-#include <iostream>
-#include <stdlib.h>
-#include <algorithm>
-#include <vector>
-#include <time.h>
-const int NUM_BALLS =20;
-class Board
-{
-private:
-	std::vector<int> m_balls;
-	Board* forwardChild;
-	Board* backwardChild;
-	Board* rotateChild;
-	int m_predicted;
-	int m_hueristic = 0;
-	void swap(int a, int b)
+
+#include "Board.h"
+	void Board::swap(int a, int b)
 	{
 		int tmp = m_balls[a];
 		m_balls[a] = m_balls[b];
 		m_balls[b] = tmp;
 	}
 	//end extra variables
-public:
-
 	//get balls
-	Board(int shuffles)
+	Board::Board()//allows node class to work
+	{
+		srand(time(NULL));
+		for (int i = 1; i <= NUM_BALLS; i++)//fill ball vector with 1 - 20
+                {
+                        m_balls.push_back(i);
+                }
+	}
+	Board::Board(int shuffles)
 	{
 		srand(time(NULL));
 		for (int i = 1; i <= NUM_BALLS; i++)//fill ball vector with 1 - 20
@@ -32,8 +25,16 @@ public:
 		}
 		this->shuffle(shuffles);
 	}
+	Board::Board(const Board &b)
+	{
+	
+	}
+	const int Board::getHueristic()
+	{
+		return m_hueristic;	
+	}
 
-	int findBall(int ball)
+	int Board::findBall(int ball)
 	{
 		for (int i = 0; i < NUM_BALLS; i++)
 		{
@@ -43,8 +44,6 @@ public:
 			}
 		}
 	}
-	int getHueristic()
-	{
 		//code to find value of huerstic
 		/*
 
@@ -72,42 +71,31 @@ public:
 			m_hueristic += 4;
 		}
 		*/ 
-		return m_hueristic;
-	}
-	void moveForward()
+	void Board::computeHueristic()
 	{
-		std::rotate(m_balls.begin(), m_balls.end()-1, m_balls.end());
+		//compute hueristic
 	}
-	void moveBackwards()
-	{
-		std::rotate(m_balls.begin(), m_balls.begin() + 1, m_balls.end());
-	}
-	void rotate()
+	void Board::rotate()
 	{
 		this->swap(12, 15);
 		this->swap(13, 14);
 	}
-	Board* getForwardChild()
-    {
-		return forwardChild;
-    }
-    Board* getBackwardChild()
-    {
-        return backwardChild;
-    }
-    Board* getRotateChild()
-    {
-		return rotateChild;
-    }
+	void Board::moveForward()
+	{
+		std::rotate(m_balls.begin(), m_balls.end()-1, m_balls.end());
+	}
+	void Board::moveBackwards()
+	{
+		std::rotate(m_balls.begin(), m_balls.begin() + 1, m_balls.end());
+	}	
 
-	void shuffle(int numMoves)
+	void Board::shuffle(int numMoves)
 	{
 		int count = 0;
 		int lastMove = -1;
 		while(count <= numMoves)
 		{
 			int random = rand()%3;
-			lastMove = random;
 			switch (random)
 			{
 				case 0:
@@ -127,15 +115,16 @@ public:
 						count++;
 						//will be undone if repeated 20 but that is an unlikly case
 			}
+			lastMove = random;
 		}
 		//reset stats for a new board
 	}
-	void display()
+	void Board::display()
 	{
 		/*
 			 1  2  3  4  5  6  7  8 
-			20					  9
-			19					  10
+			20	 		  9
+			19			  10
 			18 17 16 15 14 13 12  11 
 
 		*/
@@ -149,6 +138,5 @@ public:
 		{
 			std::cout << m_balls[i] << "\t";
 		}
+		std::cout << std::endl;
 	}
-
-};
