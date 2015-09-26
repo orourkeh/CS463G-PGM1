@@ -94,20 +94,15 @@ int main()
 	//Create 5 random boards with = k values
 	srand(time(NULL));
 	int moves = rand() % RANDOM_UPPER + RANDOM_LOWER;
-	moves = 19;
 	//std::vector<Board> boardList(5, Board(moves)); causes all boards to be the same
 	for(int i = 0; i < NUM_BOARDS; i++)
 	{	
 		Board b(moves);
 		node root(0, b, NULL);//depth 0 board=b parent =NULL
-		//root.board.display();
+		root.board.display();
 		IMAstar(root, moves);
 		std::cout << "Randomizer took: " << moves << " moves.\n\n";
 	}
-	
-	char c;
-	std::cin >> c;
-
 	return 0;
 }
 
